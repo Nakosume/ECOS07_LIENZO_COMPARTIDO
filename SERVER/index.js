@@ -2,11 +2,13 @@
 const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io')
+const cors = require('cors')
 
 //generar instancia
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
+app.use(cors())
 
 //envio estatico de contenido de public
 app.use(express.static(__dirname + '/public'));
