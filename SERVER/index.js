@@ -2,7 +2,6 @@
 const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io')
-const cors = require('cors')
 
 //generar instancia
 const app = express();
@@ -13,7 +12,6 @@ const io = socketIO(server);
 //envio estatico de contenido de public
 app.use(express.static(__dirname + '/public'));
 
-app.use(cors())
 
 //conexion de cliente
 io.on('connect', (socket) => {
