@@ -11,6 +11,7 @@ let cursors = []
 
 function setup() {
   createCanvas(400, 400);
+  color = createColorPicker("green");
   r = int(Math.random() * 255)
   g = int(Math.random() * 255)
   b = int(Math.random() * 255)
@@ -21,15 +22,15 @@ function setup() {
 function draw() {
   background(220);
 
-  //dra from elements list
+  //draw from elements list
   elements.forEach((element) => {
-    fill(element.r, element.g, element.b);
+    fill(color.color());
     ellipse(element.x, element.y, element.size, element.size);
   })
 
   //draw from cursors list
   cursors.forEach((element) => {
-    fill(0, 0, 0),
+    fill(color.color()),
       ellipse(element.x, element.y, element.size, element.size)
   })
 }
