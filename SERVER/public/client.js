@@ -1,11 +1,12 @@
 const socket = io()
 
-let size = 20;
+let size;
 let r = 0;
 let g = 0;
 let b = 0;
 let col = 0;
 let id = 0;
+let slider
 
 let elements = [];
 let cursors = []
@@ -13,6 +14,7 @@ let cursors = []
 function setup() {
   createCanvas(400, 400);
   color = createColorPicker("green");
+  slider = createSlider(0, 40, 20);
   r = int(Math.random() * 255)
   g = int(Math.random() * 255)
   b = int(Math.random() * 255)
@@ -23,7 +25,7 @@ function setup() {
 function draw() {
   background(220);
   noStroke();
-  
+
   //draw from elements list
   elements.forEach((element) => {
     fill(element.col);
@@ -48,8 +50,6 @@ function mousePressed() {
     size
   }
 
-  console.log("color: ", color.value())
-
   socket.emit('send-element', element)
 }
 
@@ -61,26 +61,24 @@ function mouseDragged() {
     g: g,
     b: b,
     col: color.value(),
-    size,
+    size: slider.value(),
     id: id
   }
-
-  console.log("color: ", color.value())
 
   socket.emit('send-cursor', element)
 }
 
-socket.on('element-received',(element)=>{
-  console.log("element-received: ",element)
+socket.on('element-received', (element) => {
+  //console.log("element-received: ",element)
   elements.push(element)
 })
 
-socket.on('cursor-received',(element)=>{
+socket.on('cursor-received', (element) => {
   //console.log("element-received: ",element)
-  let cursorIndex=cursors.findIndex((index)=>element.id==getItem.id)
-  if(cursorIndex!=-1){
-    cursors[cursorIndex]=element
-  }else{
+  let cursorIndex = cursors.findIndex((index) => element.id == getItem.id)
+  if (cursorIndex != -1) {
+    cursors[cursorIndex] = element
+  } else {
     cursors.push(element)
   }
 })
