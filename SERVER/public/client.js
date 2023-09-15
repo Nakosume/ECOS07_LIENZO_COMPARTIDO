@@ -71,6 +71,7 @@ socket.on('cursor-received',(element)=>{
   let cursorIndex=cursors.findIndex((index)=>element.id==getItem.id)
   if(cursorIndex!=-1){
     cursors[cursorIndex]=element
+  }else{
+    cursors.push(element)
   }
-  cursors.push(element)
 })
