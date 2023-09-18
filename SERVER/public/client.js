@@ -38,7 +38,7 @@ function mousePressed() {
     x: mouseX,
     y: mouseY,
     col: color.value(),
-    size
+    size: slider.value(),
   }
 
   socket.emit('send-element', element)
